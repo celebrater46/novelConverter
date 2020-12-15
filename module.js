@@ -1,7 +1,7 @@
-import errorLog from "../errorLog";
+// import errorLog from "../errorLog.js";
 
 // エラーログ用
-const nameOfComponent = "novelConverter/module.js";
+const nameOfComponent = "novelConverter/module";
 
 // 改行方式をチェック
 const checkBrType = (text) => {
@@ -17,7 +17,7 @@ const checkBrType = (text) => {
 // 改行タグを追加（改行コードに応じて出力を変化）
 const addBr = (text, checked) => {
 	const brType = checkBrType(text);
-	errorLog([brType], "brType", "addBr", nameOfComponent);
+	// errorLog([brType], "brType", "addBr", nameOfComponent);
 	if(checked) {
 		switch(brType) {
 			case "rn":	return text.replace(/\r\n/g, "<br />\r\n");
@@ -141,4 +141,4 @@ const convertText = (text, status) => {
 	}
 }
 
-export default convertText;
+// export default convertText;

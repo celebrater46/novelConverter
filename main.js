@@ -1,6 +1,6 @@
-import convertText from "module.js";
+// import convertText from "./module.js";
 
-let resetSW = false;
+// let resetSW = false;
 
 // チェックボックスのステータスを取得
 const getStatus = () => {
