@@ -2,11 +2,11 @@
 
 let resetSW = false;
 
-$("#select").click(function() {
+$("#select").click(() => {
     $("#html").select();
 });
 
-$("#convert").click(function() {
+$("#convert").click(() => {
     let checkSW = [false, false];
     let cb = document.op.checkBox;
 
@@ -125,7 +125,7 @@ $("#convert").click(function() {
     // console.log($checked);
 });
 
-$("#reset").click(function() {
+$("#reset").click(() => {
     // 値を設定
     $("#source").val("｜堕天男《ルシファー》");
     $("#html").val("<RUBY><RB>堕天男</RB><RP>（</RP><RT>ルシファー</RT><RP>）</RP></RUBY><br>");

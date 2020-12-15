@@ -1,6 +1,6 @@
-import errorLog from "./errorLog";
+import errorLog from "../errorLog";
 
-const nameOfComponent = "HTMLConverter/module.js";
+const nameOfComponent = "novelConverter/module.js";
 
 const checkBrType = (text) => {
 	if(text.indexOf("\r\n") > -1) {
@@ -26,14 +26,6 @@ const addBr = (text, checked) => {
 		return text;
 	}
 }
-
-// const convertForJson = (text, checked) => {
-// 	if(checked) {
-// 		return text.replace(/\n/g, "\\n");
-// 	} else {
-// 		return text;
-// 	}
-// }
 
 const setRubyOfDot = (letter) => {
 	return "<ruby><rb>" + letter + "</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby>";
@@ -133,6 +125,9 @@ const convertText = (id, source, status) => {
 		}
 		// text = addBr(text, status[i].checked);
 		return text;
-	} else 
+	} else {
 		errorLog([source, status], "source, status", "convertText", nameOfComponent);
 	}
+}
+
+export default convertText;
