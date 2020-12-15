@@ -47,6 +47,21 @@ const getNoRubyWordOfDot = (start, end, text) => {
 	}
 }
 
+const convertRuby = (text, checked) => {
+	if(text) {
+		let result = text;
+		if (checked) {
+			result = result.replace(/｜/g, "<ruby><rb>");
+			result = result.replace(/\|/g, "<ruby><rb>");
+			result = result.replace(/《/g, "</rb><rp>（</rp><rt>");
+			result = result.replace(/》/g, "</rt><rp>）</rp></ruby>");
+		}
+		return result;
+	} else {
+		errorLog([text], "text", "convertRuby", nameOfComponent);
+	}
+}
+
 const convertDot = (text, checked) => {
 	if(text) {
 		if (checked) {
@@ -76,57 +91,44 @@ const convertDot = (text, checked) => {
 	}
 }
 
-const convertRuby = (text, checked) => {
-	if(text) {
-		let result = text;
-		if (checked) {
-			result = result.replace(/｜/g, "<ruby><rb>");
-			result = result.replace(/\|/g, "<ruby><rb>");
-			result = result.replace(/《/g, "</rb><rp>（</rp><rt>");
-			result = result.replace(/》/g, "</rt><rp>）</rp></ruby>");
-		}
-		return result;
-	} else {
-		errorLog([text], "text", "convertRuby", nameOfComponent);
-	}
-}
+// const convertSymbol = (id, source, status) => {
+// 	if(id > 12) {
+// 		let text = source;
+// 		if (status[0].checked) {
+// 			text = text.replace(/"/g, "&quot;");
+// 		}    
+// 		if (status[1].checked) {
+// 			text = text.replace(/&/g, "&amp;");
+// 		}    
+// 		if (status[2].checked) {
+// 			text = text.replace(/</g, "&lt;");
+// 		}    
+// 		if (status[3].checked) {
+// 			text = text.replace(/>/g, "&gt;");
+// 		}
+// 		return text;
+// 	} else {
+// 		return source;
+// 	}
+// }
 
-const convertSymbol = (id, source, status) => {
-	if(id > 12) {
-		let text = source;
-		if (status[0].checked) {
-			text = text.replace(/"/g, "&quot;");
-		}    
-		if (status[1].checked) {
-			text = text.replace(/&/g, "&amp;");
-		}    
-		if (status[2].checked) {
-			text = text.replace(/</g, "&lt;");
-		}    
-		if (status[3].checked) {
-			text = text.replace(/>/g, "&gt;");
-		}
-		return text;
-	} else {
-		return source;
-	}
-}
-
-const convertText = (id, source, status) => {
-	if(source && status) {
-		let text = source;
-		const i = (() => { if(id > 12) { return 4; } else { return 0; }})();
-		text = convertSymbol(id, text, status);
-		text = addBr(text, status[i].checked);
-		if(id !== 13) {
+const convertText = (text, status) => {
+	if(text && status) {
+		// let text = text;
+		// const i = (() => { if(id > 12) { return 4; } else { return 0; }})();
+		// text = convertSymbol(id, text, status);
+		const textBr = addBr(text, status.br);
+		const textDot = convertDot(textBr, status.dot);
+		const textRb = convertRuby(textDot, status.rb);
+		// if(id !== 13) {
 			// text = convertForJson(text, status[i + 1].checked);
-			text = convertDot(text, status[i + 1].checked);
-			text = convertRuby(text, status[i + 2].checked);
-		}
+			// text = convertDot(text, status[i + 1].checked);
+			// text = convertRuby(text, status[i + 2].checked);
+		// }
 		// text = addBr(text, status[i].checked);
-		return text;
+		return textRb;
 	} else {
-		errorLog([source, status], "source, status", "convertText", nameOfComponent);
+		errorLog([text, status], "source, status", "convertText", nameOfComponent);
 	}
 }
 
