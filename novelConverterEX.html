@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>WEB小説HTMLタグ変換機（試作品）</title>
+  <meta name="description" content="WEB小説のリーダーです。個人用。">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="converters.css">
+  <script
+  src="https://code.jquery.com/jquery-1.10.2.js"
+  integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="
+  crossorigin="anonymous"></script>
+  <!-- 開発用 -->
+  <script
+  src="../library/js/jquery-1.10.2.js"></script>
+</head>
+<body class="bg-dark text-light text-center">
+  <div class="container">
+    <h1 class="my-4">WEB小説HTMLタグ変換機（試作品）</h1>
+    <p>傍点指定やルビ記号を<ruby>タグ化し、改行タグを挿入するツールです。</p>
+    <p>【 ルビ記号使用例 】　｜堕天男《ルシファー》　->　<ruby><rb>堕天男</rb><rp>（</rp><rt>ルシファー</rt><rp>）</rp></ruby></p>
+    <p>【 傍点変換例 】　《《傍点を変換します》》-> <ruby><rb>傍</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>点</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>を</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>変</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>換</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>し</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>ま</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>す</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby></p>
+    <form name="op" class="mb-4">
+      <label><input type="checkbox" name="checkBox" value="c" checked> 改行タグ</label>
+      <label><input type="checkbox" name="checkBox" value="c" checked> For JSON</label>
+      <label><input type="checkbox" name="checkBox" value="a" checked> 傍点変換</label>
+      <label><input type="checkbox" name="checkBox" value="b" checked> ルビ変換</label>
+    </form>
+    
+    <textarea id="source" class="m-0"></textarea>
+
+    <nav class="m-0 pt-0 pb-2">
+      <button id="select" class="btn-primary">全選択</button>
+      <button id="convert" class="btn-primary mx-4">変換ッッ！！＼(^q^)／</button>
+      <button id="reset" class="btn-primary">初期化</button>
+
+    </nav>
+  
+    <textarea id="html"></textarea>
+
+    <footer class="py-4">
+      Copyright (C) Enin (Eito Fujimi) 2006-2020 All Rights Reserved.
+    </footer>
+  </div>
+
+  <!-- bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- bootstrap（開発用） -->
+  <script src="../library/js/jquery-3.5.1.min.js"></script>
+  <script src="../library/bootstrap-4.4.1-dist/popper.min.js"></script>
+  <script src="../library/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="novelConverterEX.js"></script>
+</body>
+</html>
