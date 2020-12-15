@@ -1,7 +1,9 @@
 import errorLog from "../errorLog";
 
+// エラーログ用
 const nameOfComponent = "novelConverter/module.js";
 
+// 改行方式をチェック
 const checkBrType = (text) => {
 	if(text.indexOf("\r\n") > -1) {
 		return "rn";
@@ -12,6 +14,7 @@ const checkBrType = (text) => {
    	}
 }
 
+// 改行タグを追加（改行コードに応じて出力を変化）
 const addBr = (text, checked) => {
 	const brType = checkBrType(text);
 	errorLog([brType], "brType", "addBr", nameOfComponent);
@@ -27,10 +30,12 @@ const addBr = (text, checked) => {
 	}
 }
 
+// ルビを追加
 const setRubyOfDot = (letter) => {
 	return "<ruby><rb>" + letter + "</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby>";
 }
 
+// 傍点を ruby タグで追加
 const getRubiesOfDot = (word) => {
 	let html = "";
 	for(let i = 0; i < word.length; i++) {
@@ -39,6 +44,7 @@ const getRubiesOfDot = (word) => {
 	return html;
 }
 
+// 傍点指定がない場合の補正値
 const getNoRubyWordOfDot = (start, end, text) => {
 	if(end === 0) {
 		return text.slice(0, start);
@@ -47,6 +53,7 @@ const getNoRubyWordOfDot = (start, end, text) => {
 	}
 }
 
+// 青空文庫方式のルビ指定（｜仮名《かな》）を HTML タグ化
 const convertRuby = (text, checked) => {
 	if(text) {
 		let result = text;
@@ -62,10 +69,11 @@ const convertRuby = (text, checked) => {
 	}
 }
 
+// 傍点指定記号を ruby タグに変換
 const convertDot = (text, checked) => {
 	if(text) {
 		if (checked) {
-			let _text = text; // remained text
+			let _text = text; // 残りのテキスト
 			let result = [];
 			let start = text.indexOf("《《");
 			let end = 0;
@@ -112,6 +120,7 @@ const convertDot = (text, checked) => {
 // 	}
 // }
 
+// 改行タグ、傍点追加指定記号変換、ルビ指定記号変換、の総括
 const convertText = (text, status) => {
 	if(text && status) {
 		// let text = text;
