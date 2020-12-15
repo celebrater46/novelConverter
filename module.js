@@ -1,5 +1,3 @@
-// import errorLog from "../errorLog.js";
-
 // エラーログ用
 const nameOfComponent = "novelConverter/module";
 
@@ -17,7 +15,6 @@ const checkBrType = (text) => {
 // 改行タグを追加（改行コードに応じて出力を変化）
 const addBr = (text, checked) => {
 	const brType = checkBrType(text);
-	// errorLog([brType], "brType", "addBr", nameOfComponent);
 	if(checked) {
 		switch(brType) {
 			case "rn":	return text.replace(/\r\n/g, "<br />\r\n");
@@ -99,46 +96,14 @@ const convertDot = (text, checked) => {
 	}
 }
 
-// const convertSymbol = (id, source, status) => {
-// 	if(id > 12) {
-// 		let text = source;
-// 		if (status[0].checked) {
-// 			text = text.replace(/"/g, "&quot;");
-// 		}    
-// 		if (status[1].checked) {
-// 			text = text.replace(/&/g, "&amp;");
-// 		}    
-// 		if (status[2].checked) {
-// 			text = text.replace(/</g, "&lt;");
-// 		}    
-// 		if (status[3].checked) {
-// 			text = text.replace(/>/g, "&gt;");
-// 		}
-// 		return text;
-// 	} else {
-// 		return source;
-// 	}
-// }
-
 // 改行タグ、傍点追加指定記号変換、ルビ指定記号変換、の総括
 const convertText = (text, status) => {
 	if(text && status) {
-		// let text = text;
-		// const i = (() => { if(id > 12) { return 4; } else { return 0; }})();
-		// text = convertSymbol(id, text, status);
 		const textBr = addBr(text, status.br);
 		const textDot = convertDot(textBr, status.dot);
 		const textRb = convertRuby(textDot, status.rb);
-		// if(id !== 13) {
-			// text = convertForJson(text, status[i + 1].checked);
-			// text = convertDot(text, status[i + 1].checked);
-			// text = convertRuby(text, status[i + 2].checked);
-		// }
-		// text = addBr(text, status[i].checked);
 		return textRb;
 	} else {
 		errorLog([text, status], "source, status", "convertText", nameOfComponent);
 	}
 }
-
-// export default convertText;
