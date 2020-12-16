@@ -41,15 +41,9 @@ const getRubiesOfDot = (word) => {
 	return html;
 }
 
-// 傍点指定がない場合の補正値
+// 傍点指定がない場合の文章を出力
 const getNoRubyWord = (start, end, text) => {
-	// consoleLog([start, end, text], "start, end, text", "getNoRubyWord", nameOfComponent, false);
 	return text.slice(0, start);
-	// if(end === 0) {
-	// 	return text.slice(0, start);
-	// } else {
-	// 	return text.slice(end + 3, start);
-	// }
 }
 
 // 青空文庫方式のルビ指定（｜仮名《かな》）を HTML タグ化
@@ -84,20 +78,10 @@ const convertDot = (text, checked) => {
 					result.push(getRubiesOfDot(_text.slice(start + 2, end)));
 					if((end + 3) <= _text.length) { _text = _text.slice(end + 2); }
 					start = _text.indexOf("《《");
-					// consoleLog([start, end, result, _text], "start, end, result, _text", "convertDot", nameOfComponent, false);
 				}
-				consoleLog([result, _text], "result, _text", "convertDot", nameOfComponent, false);
-				result.push(_text);
-			} else {
-				result.push(_text);
 			}
-			// consoleLog([result], "result", "convertDot", nameOfComponent, false);
+			result.push(_text);
 			return result.join("");
-			// const joinedResult = result.join("");
-			// const dotlessResult = joinedResult.replace(",", "");
-			// console.log("dotlessResult at convertDot in module.js is ... ");
-			// console.log(dotlessResult);
-			// return dotlessResult; // Unify the array as string
 		} else {
 			return text;
 		}
