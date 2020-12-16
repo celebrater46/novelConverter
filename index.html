@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>WEB小説HTMLタグ変換機（試作品）</title>
+    <title>WEB小説HTMLタグ変換機</title>
     <meta name="description" content="傍点指定やルビ記号を ruby タグ化し、改行タグを挿入するツールです。">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -11,28 +11,34 @@
 </head>
 <body class="bg-dark text-light text-center">
     <div class="container">
-        <h1 class="my-4">WEB小説HTMLタグ変換機（試作品）</h1>
-        <p>傍点指定やルビ記号を<ruby>タグ化し、改行タグを挿入するツールです。</p>
-        <p>【 ルビ記号使用例 】　｜堕天男《ルシファー》　->　<ruby><rb>堕天男</rb><rp>（</rp><rt>ルシファー</rt><rp>）</rp></ruby></p>
-        <p>【 傍点変換例 】　《《傍点を変換します》》-> <ruby><rb>傍</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>点</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>を</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>変</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>換</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>し</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>ま</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>す</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby></p>
-        <form name="op" class="mb-4">
+        <h1>WEB小説HTMLタグ変換機</h1>
+        <p class="caption">傍点指定やルビ記号を ruby タグ化し、改行タグを挿入するツールです。</p>
+        <p class="caption">
+            <h2>【 ルビ記号使用例 】</h2>
+            <p>
+                ｜堕天男《ルシファー》　->　<ruby><rb>堕天男</rb><rp>（</rp><rt>ルシファー</rt><rp>）</rp></ruby>
+            </p>
+        </p>
+        <p class="caption">
+            <h2>【 傍点変換例 】</h2>
+            <p>
+                《《傍点を変換します》》-> <ruby><rb>傍</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>点</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>を</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>変</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>換</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>し</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>ま</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby><ruby><rb>す</rb><rp>（</rp><rt>・</rt><rp>）</rp></ruby>
+            </p>
+        </p>
+        <form name="op">
             <label><input type="checkbox" name="checkBox" value="br" checked> 改行タグ</label>
             <label><input type="checkbox" name="checkBox" value="dot" checked> 傍点変換</label>
             <label><input type="checkbox" name="checkBox" value="rb" checked> ルビ変換</label>
         </form>
-        
-        <textarea id="source" class="m-0"></textarea>
-
-        <nav class="m-0 pt-0 pb-2">
+        <textarea id="source"></textarea>
+        <nav>
             <button id="select" class="btn-primary">全選択</button>
             <button id="convert" class="btn-primary mx-4">変換ッッ！！＼(^q^)／</button>
             <button id="reset" class="btn-primary">初期化</button>
         </nav>
-    
         <textarea id="html"></textarea>
-
-        <footer class="py-4">
-        Copyright (C) Enin (Eito Fujimi) 2006-2020 All Rights Reserved.
+        <footer>
+            (C) Enin Fujimi 2006-2020 All Rights Reserved.
         </footer>
     </div>
 
