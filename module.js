@@ -20,7 +20,7 @@ const addBr = (text, checked) => {
 			case "rn":	return text.replace(/\r\n/g, "<br />\r\n");
 			case "n":		return text.replace(/\n/g, "<br />\n");
 			case "r":		return text.replace(/\r/g, "<br />\r");
-			default: errorLog([brType], "brType", "addBr", nameOfComponent); break;
+			default: consoleLog([brType], "brType", "addBr", nameOfComponent, true); break;
 		}
 	} else {
 		return text;
@@ -42,12 +42,14 @@ const getRubiesOfDot = (word) => {
 }
 
 // 傍点指定がない場合の補正値
-const getNoRubyWordOfDot = (start, end, text) => {
-	if(end === 0) {
-		return text.slice(0, start);
-	} else {
-		return text.slice(end + 3, start);
-	}
+const getNoRubyWord = (start, end, text) => {
+	// consoleLog([start, end, text], "start, end, text", "getNoRubyWord", nameOfComponent, false);
+	return text.slice(0, start);
+	// if(end === 0) {
+	// 	return text.slice(0, start);
+	// } else {
+	// 	return text.slice(end + 3, start);
+	// }
 }
 
 // 青空文庫方式のルビ指定（｜仮名《かな》）を HTML タグ化
@@ -62,7 +64,7 @@ const convertRuby = (text, checked) => {
 		}
 		return result;
 	} else {
-		errorLog([text], "text", "convertRuby", nameOfComponent);
+		consoleLog([text], "text", "convertRuby", nameOfComponent, true);
 	}
 }
 
@@ -77,33 +79,41 @@ const convertDot = (text, checked) => {
 			if(start !== -1) {
 				while(start > -1) {
 					if(end === -1) { console.log("end at convertDot() in HTMLConverter/module.js is wrong -1."); return null; };
-					result.push(getNoRubyWordOfDot(start, end, _text));
+					result.push(getNoRubyWord(start, end, _text));
 					end = _text.indexOf("》》");
 					result.push(getRubiesOfDot(_text.slice(start + 2, end)));
-					if((end + 3) <= _text.length) { _text = _text.slice(end + 3); }
+					if((end + 3) <= _text.length) { _text = _text.slice(end + 2); }
 					start = _text.indexOf("《《");
+					// consoleLog([start, end, result, _text], "start, end, result, _text", "convertDot", nameOfComponent, false);
 				}
-				result.push(_text.slice(end + 3));
+				consoleLog([result, _text], "result, _text", "convertDot", nameOfComponent, false);
+				result.push(_text);
 			} else {
 				result.push(_text);
 			}
-			return result.join(); // Unify the array as string
+			// consoleLog([result], "result", "convertDot", nameOfComponent, false);
+			return result.join("");
+			// const joinedResult = result.join("");
+			// const dotlessResult = joinedResult.replace(",", "");
+			// console.log("dotlessResult at convertDot in module.js is ... ");
+			// console.log(dotlessResult);
+			// return dotlessResult; // Unify the array as string
 		} else {
 			return text;
 		}
 	} else {
-		errorLog([text], "text", "convertDot", nameOfComponent);
+		consoleLog([text], "text", "convertDot", nameOfComponent, true);
 	}
 }
 
 // 改行タグ、傍点追加指定記号変換、ルビ指定記号変換、の総括
 const convertText = (text, status) => {
 	if(text && status) {
-		const textBr = addBr(text, status.br);
-		const textDot = convertDot(textBr, status.dot);
+		const textDot = convertDot(text, status.dot);
 		const textRb = convertRuby(textDot, status.rb);
-		return textRb;
+		const textBr = addBr(textRb, status.br);
+		return textBr;
 	} else {
-		errorLog([text, status], "source, status", "convertText", nameOfComponent);
+		consoleLog([text, status], "source, status", "convertText", nameOfComponent, true);
 	}
 }
