@@ -9,7 +9,9 @@ const checkBrType = (text) => {
 		return "n";
   	} else if(text.indexOf("\r") > -1) {
 		return "r";
-   	}
+   	} else {
+		return null;	   
+	}
 }
 
 // 改行タグを追加（改行コードに応じて出力を変化）
@@ -17,14 +19,14 @@ const addBr = (text, checked) => {
 	const brType = checkBrType(text);
 	if(checked) {
 		switch(brType) {
-			case "rn":	return text.replace(/\r\n/g, "<br />\r\n");
+			case "rn":		return text.replace(/\r\n/g, "<br />\r\n");
 			case "n":		return text.replace(/\n/g, "<br />\n");
 			case "r":		return text.replace(/\r/g, "<br />\r");
+			case null: 		break;
 			default: consoleLog([brType], "brType", "addBr", nameOfComponent, true); break;
 		}
-	} else {
-		return text;
 	}
+	return text;
 }
 
 // ルビを追加
@@ -70,14 +72,19 @@ const convertDot = (text, checked) => {
 			let result = [];
 			let start = text.indexOf("《《");
 			let end = 0;
+			let i = 0; // テスト用
 			if(start !== -1) {
 				while(start > -1) {
 					if(end === -1) { console.log("end at convertDot() in HTMLConverter/module.js is wrong -1."); return null; };
 					result.push(getNoRubyWord(start, end, _text));
 					end = _text.indexOf("》》");
 					result.push(getRubiesOfDot(_text.slice(start + 2, end)));
-					if((end + 3) <= _text.length) { _text = _text.slice(end + 2); }
+					if((end + 2) <= _text.length) { _text = _text.slice(end + 2); }
 					start = _text.indexOf("《《");
+					// テスト用
+					consoleLog([start, end, result, _text], "start, end, result, _text", "convertDot", nameOfComponent, true);
+					if(i > 100) return;
+					i++;
 				}
 			}
 			result.push(_text);
@@ -95,6 +102,7 @@ const convertText = (text, status) => {
 	if(text && status) {
 		const textDot = convertDot(text, status.dot);
 		const textRb = convertRuby(textDot, status.rb);
+		consoleLog([textDot, textRb, status], "textDot, textRb, status", "convertText", nameOfComponent, true);
 		const textBr = addBr(textRb, status.br);
 		return textBr;
 	} else {
