@@ -72,7 +72,6 @@ const convertDot = (text, checked) => {
 			let result = [];
 			let start = text.indexOf("《《");
 			let end = 0;
-			// let i = 0; // テスト用
 			if(start !== -1) {
 				while(start > -1) {
 					if(end === -1) { console.log("end at convertDot() in HTMLConverter/module.js is wrong -1."); return null; };
@@ -81,10 +80,6 @@ const convertDot = (text, checked) => {
 					result.push(getRubiesOfDot(_text.slice(start + 2, end)));
 					if((end + 2) <= _text.length) { _text = _text.slice(end + 2); }
 					start = _text.indexOf("《《");
-					// テスト用
-					// consoleLog([start, end, result, _text], "start, end, result, _text", "convertDot", nameOfComponent, true);
-					// if(i > 100) return;
-					// i++;
 				}
 			}
 			result.push(_text);
@@ -102,7 +97,6 @@ const convertText = (text, status) => {
 	if(text && status) {
 		const textDot = convertDot(text, status.dot);
 		const textRb = convertRuby(textDot, status.rb);
-		// consoleLog([textDot, textRb, status], "textDot, textRb, status", "convertText", nameOfComponent, true);
 		const textBr = addBr(textRb, status.br);
 		return textBr;
 	} else {
